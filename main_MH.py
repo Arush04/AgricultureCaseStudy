@@ -8,9 +8,8 @@ import os
 from datetime import datetime
 from tqdm import tqdm
 
-# === Load District Shapefile and Filter for Maharashtra ===
-districts_gdf = gpd.read_file("data/India Shapefile With Kashmir/India Shape/india_ds.shp")
-maha_gdf = districts_gdf[districts_gdf["STATE"].str.upper() == "MAHARASHTRA"].copy()
+# === Load District geojson file of Maharashtra ===
+maha_gdf = gpd.read_file("data/MAHARASHTRA_DISTRICTS.geojson")
 
 # === Define Seasonal Mapping for Maharashtra ===
 def get_season(month):
@@ -25,17 +24,18 @@ def get_season(month):
 rain_df = pd.read_csv("data/MH_precipitation.csv", parse_dates=["date"])
 temp_df = pd.read_csv("data/MH_temperature.csv", parse_dates=["date"])
 
-# === The following are the names mismatch between the csv files and the GIS shapefile, Could only find this shapefile which is old hence needs some pre-processing ===
+# === The following are the names mismatch between the csv files and the geojson file ===
 district_rename_map = {
     "BEED": "BID",
     "BULDHANA": "BULDANA",
     "NASIK": "NASHIK",
     "AHMEDNAGAR": "AHMADNAGAR",
     "RAIGAD": "RAIGARH",
-    "GARHCHIROLI": "GADCHIROLI"
+    "GARHCHIROLI": "GADCHIROLI",
+    "GONDIA": "GONDIYA"
 }
 
-# === Replace the names in csv files with names from GIS shape file ===
+# === Replace the names in csv files with names from geojson file ===
 rain_df["District"] = rain_df["District"].replace(district_rename_map)
 temp_df["District"] = temp_df["District"].replace(district_rename_map)
 
@@ -73,7 +73,7 @@ for file in tqdm(os.listdir(ndvi_folder), desc="Processing NDVI files"):
             )
 
             for feature, stat in zip(maha_gdf.iterrows(), stats):
-                district_name = feature[1]["DISTRICT"]
+                district_name = feature[1]["dtname"]
                 ndvi_stats_list.append({
                     "district": district_name,
                     "season": season,
@@ -86,21 +86,18 @@ ndvi_df = pd.DataFrame(ndvi_stats_list)
 
 # === Standardize district names across all DataFrames (they are capital in GIS file and small in csv files) ===
 ndvi_df["district"] = ndvi_df["district"].str.strip().str.lower()
-temp_df["District"] = temp_df["District"].str.strip().str.lower()
-rain_df["District"] = rain_df["District"].str.strip().str.lower()
+temp_df["district"] = temp_df["District"].str.strip().str.lower()
+rain_df["district"] = rain_df["District"].str.strip().str.lower()
 
-# === Rename columns for consistency ===
-temp_df = temp_df.rename(columns={"District": "district", "Mean_Temperature": "mean_temp"})
-rain_df = rain_df.rename(columns={"District": "district", "Rainfall_mm": "rainfall_mm"})
-
-# === Calculate monthly mean for each district ===
+# === Calculate monthly mean NDVI for each district and get mean temp and rainfall_mm values===
 ndvi_monthly = ndvi_df.groupby(["district", "season", "month", "year"]).agg(mean_ndvi=("mean_ndvi", "mean")).reset_index()
-temp_monthly = temp_df.groupby(["district", "season", "month", "year"]).agg(mean_temp=("mean", "mean")).reset_index()
+temp_monthly = temp_df.groupby(["district", "season", "month", "year", "min", "max"]).agg(mean_temp=("mean", "mean")).reset_index()
 rainfall_monthly = rain_df.groupby(["district", "season", "month", "year"]).agg(rainfall_mm=("rainfall_mm", "mean")).reset_index()
 
 # === Merge the dataframes on common keys ===
 merged = pd.merge(ndvi_monthly, temp_monthly, on=["district", "season", "month", "year"], how="left")
 merged = pd.merge(merged, rainfall_monthly, on=["district", "season", "month", "year"], how="left")
+merged = merged.rename(columns={"min": "min_temp", "max": "max_temp", "rainfall_mm": "mean_rainfall(mm)"})
 
 # === Add Crop Mapping ===
 crop_map = {
@@ -117,7 +114,7 @@ merged["state"] = "Maharashtra"
 merged["crops"] = merged.apply(lambda row: assign_crops(row["state"], row["season"]), axis=1)
     
 # === Save separate CSVs for each year ===
-output_folder = "analysis"
+output_folder = "analysis_MH"
 os.makedirs(output_folder, exist_ok=True)
 
 for year in merged["year"].unique():
