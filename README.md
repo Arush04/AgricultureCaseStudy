@@ -1,4 +1,4 @@
-<p align="center"><h1 align="center">AGRICULTURECASESTUDY</h1></p>
+<p align="center"><h1 align="center">AGRICULTURE CASE STUDY</h1></p>
 <p align="center">
 	<img src="https://img.shields.io/github/last-commit/Arush04/AgricultureCaseStudy?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
 	<img src="https://img.shields.io/github/languages/top/Arush04/AgricultureCaseStudy?style=default&color=0080ff" alt="repo-top-language">
@@ -52,62 +52,6 @@ This project, undertaken for agricultural policymakers and stakeholders in the I
         └── visualize_mp.py
 ```
 
-
-###  Project Index
-<details open>
-	<summary><b><code>AGRICULTURECASESTUDY/</code></b></summary>
-	<details> <!-- __root__ Submodule -->
-		<summary><b>__root__</b></summary>
-		<blockquote>
-			<table>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/requirements.txt'>requirements.txt</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			</table>
-		</blockquote>
-	</details>
-	<details> <!-- src Submodule -->
-		<summary><b>src</b></summary>
-		<blockquote>
-			<table>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/visualize_mp.py'>visualize_mp.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/extractor.py'>extractor.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/config.py'>config.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/plot_graphs.py'>plot_graphs.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/scrapper.py'>scrapper.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/visualize_mh.py'>visualize_mh.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/main_MP.py'>main_MP.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			<tr>
-				<td><b><a href='https://github.com/Arush04/AgricultureCaseStudy/blob/master/src/main_MH.py'>main_MH.py</a></b></td>
-				<td><code>❯ REPLACE-ME</code></td>
-			</tr>
-			</table>
-		</blockquote>
-	</details>
-</details>
-
 ---
 ##  Getting Started
 
@@ -160,13 +104,30 @@ This will download files in `data/download` folder
 2. Check out to the downloads folder and select and extract all zip files, once extracted move all files to a new folder called `ndvi_files` in the data folder
 3. Then run this from root
 ```sh
-❯ python src/scrapper.py
+❯ python src/extractor.py
 ```
-This extracts all .tif files from the ndvi_files folder and saves them in the `data/tif_files`  
+This extracts all .tif files from the `ndvi_files` folder and saves them in the `data/tif_files`  
 
 4. Now we have all data, now run 
 ```sh
-❯ python src/main_MH.py
+❯ python src/main_MH.py # for MP run src/main_MP.py
+```
+This creates a folder called `analysis_MH` in the root directory which contains year-wise csv files with data like mean_temp, mean_ndvi, rainfall(in mm) for each district of Mahrashtra  
+
+5. For plotting graphs we have 3 options:
+   ```
+	1 is for NDVI vs mean temp and rainfall
+   	2 is for NDVI concentration for different temp and rainfall ranges
+   	3 is NDVI vs temp and NDVI vs rainfall trend line
+   ```
+To get these graphs run the following:
+```sh
+❯ python src/plot_graphs.py --plot_function <option> --input_folder <folder with csv files we get from running main_MH>
+```
+
+6.  Similarly to visualize district wise average NDVI per year run the following:
+```sh
+❯ python src/visualize_mh.py --input_folder <older with csv files we get from running main_MH> --output_folder <your output folder>
 ```
 
 ###  Testing
@@ -176,9 +137,3 @@ Run the test suite using the following command:
 ```sh
 ❯ pytest
 ```
-
-##  Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
-
----
