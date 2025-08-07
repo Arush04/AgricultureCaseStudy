@@ -32,7 +32,8 @@
 ##  Overview
 This project, undertaken for agricultural policymakers and stakeholders in the Indian states of Maharashtra (MH) and Madhya Pradesh (MP), aimed to comprehensively assess and strengthen climate resiliency in regional agriculture—a critical issue for these states’ millions of farming families, given the mounting risks from unpredictable rainfall, temperature shifts, and frequent extreme weather. The initiative’s scope spanned deep-dive climate data analysis (including ten years’ temperature, rainfall, and NDVI satellite data), district-level crop performance evaluations, economic impact assessments, infrastructure and technology review, and policy effectiveness audits.  
 
-### case study:  https://docs.google.com/document/d/1f_QWoklRnerbU-fw0uvym0x1-GisBtauC9V8_fudRn8/edit?usp=sharing
+### case study:  https://docs.google.com/document/d/1f_QWoklRnerbU-fw0uvym0x1-GisBtauC9V8_fudRn8/edit?usp=sharing  
+### demo video: https://drive.google.com/file/d/1Z5jWUUeFZbV1hiR2vra4NceiRpHxc6e6/view?usp=sharing
 
 ---
 ##  Project Structure
