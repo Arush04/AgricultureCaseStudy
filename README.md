@@ -50,6 +50,9 @@ This project, undertaken for agricultural policymakers and stakeholders in the I
         ├── scrapper.py
         ├── visualize_mh.py
         └── visualize_mp.py
+	└── tests
+        ├── test_plotting.py
+        ├── test_scrapper.py
 ```
 
 ---
@@ -116,9 +119,9 @@ This creates a folder called `analysis_MH` in the root directory which contains 
 
 5. For plotting graphs we have 3 options:
    ```
-	1 is for NDVI vs mean temp and rainfall
-   	2 is for NDVI concentration for different temp and rainfall ranges
-   	3 is NDVI vs temp and NDVI vs rainfall trend line
+	1 is for NDVI vs mean temp and rainfall  
+	2 is for NDVI concentration for different temp and rainfall ranges  
+	3 is NDVI vs temp and NDVI vs rainfall trend line  
    ```
 To get these graphs run the following:
 ```sh
@@ -131,9 +134,15 @@ To get these graphs run the following:
 ```
 
 ###  Testing
-Run the test suite using the following command:
+For testing the scrapper:
 **Using `pip`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Pip-3776AB.svg?style={badge_style}&logo=pypi&logoColor=white" />](https://pypi.org/project/pip/)
 
 ```sh
-❯ pytest
+❯ python -m unittest tests/test_scrapper.py
+```
+
+For testing the plotting file
+
+```sh
+❯ python3 -m unittest tests/test_plotting.py
 ```
