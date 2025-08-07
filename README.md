@@ -1,12 +1,5 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" align="center" width="30%">
-</p>
 <p align="center"><h1 align="center">AGRICULTURECASESTUDY</h1></p>
 <p align="center">
-	<em><code>❯ REPLACE-ME</code></em>
-</p>
-<p align="center">
-	<img src="https://img.shields.io/github/license/Arush04/AgricultureCaseStudy?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
 	<img src="https://img.shields.io/github/last-commit/Arush04/AgricultureCaseStudy?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
 	<img src="https://img.shields.io/github/languages/top/Arush04/AgricultureCaseStudy?style=default&color=0080ff" alt="repo-top-language">
 	<img src="https://img.shields.io/github/languages/count/Arush04/AgricultureCaseStudy?style=default&color=0080ff" alt="repo-language-count">
@@ -37,17 +30,9 @@
 ---
 
 ##  Overview
-
-<code>❯ REPLACE-ME</code>
-
----
-
-##  Features
-
-<code>❯ REPLACE-ME</code>
+This project, undertaken for agricultural policymakers and stakeholders in the Indian states of Maharashtra (MH) and Madhya Pradesh (MP), aimed to comprehensively assess and strengthen climate resiliency in regional agriculture—a critical issue for these states’ millions of farming families, given the mounting risks from unpredictable rainfall, temperature shifts, and frequent extreme weather. The initiative’s scope spanned deep-dive climate data analysis (including ten years’ temperature, rainfall, and NDVI satellite data), district-level crop performance evaluations, economic impact assessments, infrastructure and technology review, and policy effectiveness audits.  
 
 ---
-
 ##  Project Structure
 
 ```sh
@@ -162,14 +147,27 @@ Install AgricultureCaseStudy using one of the following methods:
 
 
 
-###  Usage
-Run AgricultureCaseStudy using the following command:
+###  Steps
+Make sure the requirements are installed and environment activated  
+1. Make use of the scrapper to download raster files:
 **Using `pip`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Pip-3776AB.svg?style={badge_style}&logo=pypi&logoColor=white" />](https://pypi.org/project/pip/)
 
 ```sh
-❯ python {entrypoint}
+❯ python src/scrapper.py
 ```
+This will download files in `data/download` folder  
 
+2. Check out to the downloads folder and select and extract all zip files, once extracted move all files to a new folder called `ndvi_files` in the data folder
+3. Then run this from root
+```sh
+❯ python src/scrapper.py
+```
+This extracts all .tif files from the ndvi_files folder and saves them in the `data/tif_files`  
+
+4. Now we have all data, now run 
+```sh
+❯ python src/main_MH.py
+```
 
 ###  Testing
 Run the test suite using the following command:
