@@ -117,4 +117,4 @@ def extract_tif_files(source_dir=".", target_dir="extracted_tifs"):
     print(f"Files saved to: {os.path.abspath(target_dir)}")
 
 if __name__ == "__main__":
-    extract_tif_files(source_dir="ndvi_data", target_dir="tif_files_new")
+    extract_tif_files(source_dir="data/ndvi_files", target_dir="data/tif_files")

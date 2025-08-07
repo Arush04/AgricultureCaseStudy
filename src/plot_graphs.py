@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
+import numpy as np
 
 
 def ndvi_vs_temp_n_rainfall(folder_path):
@@ -125,10 +126,6 @@ def temp_n_rainfall(folder_path):
     plt.show()
 
 if __name__=="__main__":
-    cfg = Configuration()
-    print("choose 1 for ")
-    print("choose 2 for ")
-    print("choose 3 for ")
     parser = argparse.ArgumentParser(description='Draw NDVI State Map')
     parser.add_argument('--plot_function', required=True, type=str, help='Which Plot you want?')
     parser.add_argument('--input_folder', type=str, required=True,help='Path to folder with CSV files with per year data of State')

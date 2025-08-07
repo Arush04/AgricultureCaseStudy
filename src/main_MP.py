@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import numpy as np
 import rasterio
-import rasterstats
+# import rasterstats
 from rasterstats import zonal_stats
 import os
 from datetime import datetime

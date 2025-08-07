@@ -1,3 +1,4 @@
+requests
 pandas
 numpy
 matplotlib
@@ -5,3 +6,4 @@ rasterio
 geopandas
 rasterstats
 tqdm
+seaborn
